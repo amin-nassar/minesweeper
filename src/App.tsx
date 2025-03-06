@@ -1,5 +1,7 @@
+import "./App.css";
+
 function App() {
-  return <h1>Minesweeper</h1>;
+  return <div className="game"></div>;
 }
 
 export default App;

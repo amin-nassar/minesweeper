@@ -1,0 +1,68 @@
+.cell {
+  --cell-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: calc(var(--cell-size) * 0.75);
+  font-weight: 700;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border: 1px solid #bbbbbb;
+  user-select: none;
+  cursor: default;
+  position: relative;
+  box-sizing: border-box;
+
+  & img {
+    width: 75%;
+    height: 75%;
+  }
+
+  &.one {
+    color: blue;
+  }
+
+  &.two {
+    color: green;
+  }
+
+  &.three {
+    color: tomato;
+  }
+
+  &.four {
+    color: darkviolet;
+  }
+
+  &.five {
+    color: darkred;
+  }
+
+  &.six {
+    color: steelblue;
+  }
+
+  &:is(.seven, .eight) {
+    color: black;
+  }
+
+  .overlay {
+    height: 100%;
+    width: 100%;
+    background-color: #ccc;
+    border-style: solid;
+    border-width: 2px;
+    border-top-color: #fff;
+    border-left-color: #fff;
+    border-bottom-color: #aaa;
+    border-right-color: #aaa;
+    box-sizing: border-box;
+    box-shadow: 3px 3px 8px #33333366;
+    display: grid;
+
+    & .flag {
+      display: block;
+      margin: auto;
+    }
+  }
+}

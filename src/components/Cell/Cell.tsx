@@ -2,10 +2,10 @@ import { CELL_VALUE_COLOR } from "./constants";
 import classes from "./styles.module.css";
 import mineIcon from "/icons/mine.svg";
 import flagIcon from "/icons/red-flag.svg";
-import type { Cell } from "./types";
+import type { GameCell } from "./types";
 
 interface Props {
-  cell: Cell;
+  cell: GameCell;
 }
 
 export default function Cell({ cell }: Props) {

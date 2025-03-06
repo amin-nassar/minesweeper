@@ -1,3 +1,3 @@
-import type { Cell } from "../Cell";
+import type { GameCell } from "../Cell";
 
-export type Board = Cell[][];
+export type GameBoard = GameCell[][];

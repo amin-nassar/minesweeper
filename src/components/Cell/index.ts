@@ -1,2 +1,2 @@
 export { default } from "./Cell";
-export type { Cell, CellValue } from "./types";
+export type { GameCell } from "./types";

@@ -22,13 +22,9 @@ function getAdjacentCells(board: GameBoard, row: number, col: number) {
     [1, 1],
   ];
 
-  const isValidPair = ([r, c]: number[]) => !!board[r]?.[c];
-
-  // TODO: Merge 2 .map calls together.
   return directions
-    .map(([dr, dc]) => [row + dr, col + dc])
-    .filter(isValidPair)
-    .map(([r, c]) => board[r][c]);
+    .map(([dr, dc]) => board[row + dr]?.[col + dc])
+    .filter(Boolean);
 }
 
 export function createBoard({ rows, cols, mines }: GameLevel): GameBoard {

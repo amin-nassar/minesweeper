@@ -27,6 +27,14 @@ function getAdjacentCells(board: GameBoard, row: number, col: number) {
     .filter(Boolean);
 }
 
+function countAdjacentMines(board: GameBoard, row: number, col: number) {
+  const adjacentCells = getAdjacentCells(board, row, col);
+  return adjacentCells.filter(isMine).length as Exclude<
+    GameCell["value"],
+    string
+  >;
+}
+
 export function createBoard({ rows, cols, mines }: GameLevel): GameBoard {
   const board = Array.from({ length: rows }, () =>
     Array.from({ length: cols }, createEmptyCell)
@@ -46,13 +54,7 @@ export function createBoard({ rows, cols, mines }: GameLevel): GameBoard {
   board.forEach((row, rIdx) => {
     row.forEach((cell, cIdx) => {
       if (cell.value === "mine") return;
-      // TODO: Convert `getAdjacentCells` to `countAdjacentMines`
-      const adjacentCells = getAdjacentCells(board, rIdx, cIdx);
-      // TODO: Fix Typing Or Extract Numeric Values of a cell
-      cell.value = adjacentCells.filter(isMine).length as Exclude<
-        GameCell["value"],
-        "mine"
-      >;
+      cell.value = countAdjacentMines(board, rIdx, cIdx);
     });
   });
 

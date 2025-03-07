@@ -18,31 +18,31 @@
     height: 75%;
   }
 
-  &.one {
+  & .one {
     color: blue;
   }
 
-  &.two {
+  & .two {
     color: green;
   }
 
-  &.three {
+  & .three {
     color: tomato;
   }
 
-  &.four {
+  & .four {
     color: darkviolet;
   }
 
-  &.five {
+  & .five {
     color: darkred;
   }
 
-  &.six {
+  & .six {
     color: steelblue;
   }
 
-  &:is(.seven, .eight) {
+  & :is(.seven, .eight) {
     color: black;
   }
 

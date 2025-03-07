@@ -16,13 +16,12 @@ export default function Cell({ cell }: Props) {
 
     if (value === "mine") return <img src={mineIcon} alt="Mine" />;
 
-    return value;
+    const color = CELL_VALUE_COLOR[value];
+    return <p className={classes[color] ?? ""}>{value}</p>;
   }
 
-  const colorClass = value === "mine" ? "" : CELL_VALUE_COLOR[value];
-
   return (
-    <div className={`${classes.cell} ${classes[colorClass]}`}>
+    <div className={`${classes.cell}`}>
       {isOpen ? (
         renderValue()
       ) : (

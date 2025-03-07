@@ -1,9 +1,10 @@
 import classes from "./styles.module.css";
 import Cell from "../Cell";
 import { createBoard } from "../../utils";
+import { GAME_LEVELS } from "../../constants";
 
 export default function Board() {
-  const board = createBoard({ cols: 10, rows: 10, mines: 10 });
+  const board = createBoard(GAME_LEVELS.EASY);
   return (
     <div className="board">
       {board.map((row, rowIndex) => (

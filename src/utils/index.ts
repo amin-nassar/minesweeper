@@ -1,5 +1,6 @@
 import { GameBoard } from "../components/Board/types";
 import { GameCell } from "../components/Cell";
+import { GameLevel } from "../types";
 
 function createEmptyCell(): GameCell {
   return { value: 0, isFlagged: false, isOpen: false };
@@ -30,8 +31,7 @@ function getAdjacentCells(board: GameBoard, row: number, col: number) {
     .map(([r, c]) => board[r][c]);
 }
 
-type BoardInfo = { rows: number; cols: number; mines: number };
-export function createBoard({ rows, cols, mines }: BoardInfo): GameBoard {
+export function createBoard({ rows, cols, mines }: GameLevel): GameBoard {
   const board = Array.from({ length: rows }, () =>
     Array.from({ length: cols }, createEmptyCell)
   );

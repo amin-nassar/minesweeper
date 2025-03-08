@@ -13,6 +13,10 @@
   position: relative;
   box-sizing: border-box;
 
+  &.small {
+    --cell-size: 1.25rem;
+  }
+
   & img {
     width: 75%;
     height: 75%;

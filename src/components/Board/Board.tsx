@@ -16,6 +16,7 @@ export default function Board() {
                 key={cellIndex}
                 cell={cell}
                 onClick={() => handleCellClick(rowIndex, cellIndex)}
+                size={level === "HARD" ? "small" : "small"}
               />
             ))}
           </div>

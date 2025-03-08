@@ -7,9 +7,10 @@ import type { GameCell } from "./types";
 interface Props {
   cell: GameCell;
   onClick: () => void;
+  size: "small" | "normal";
 }
 
-export default function Cell({ cell, onClick }: Props) {
+export default function Cell({ cell, onClick, size }: Props) {
   const { value, isOpen, isFlagged } = cell;
 
   function renderValue() {
@@ -25,7 +26,10 @@ export default function Cell({ cell, onClick }: Props) {
     cell.value === "mine" && cell.highlight ? classes[cell.highlight] : "";
 
   return (
-    <div className={`${classes.cell} ${highlightClass}`} onClick={onClick}>
+    <div
+      className={`${classes.cell} ${classes[size]} ${highlightClass}`}
+      onClick={onClick}
+    >
       {isOpen ? (
         renderValue()
       ) : (

@@ -6,9 +6,10 @@ import type { GameCell } from "./types";
 
 interface Props {
   cell: GameCell;
+  onClick: () => void;
 }
 
-export default function Cell({ cell }: Props) {
+export default function Cell({ cell, onClick }: Props) {
   const { value, isOpen, isFlagged } = cell;
 
   function renderValue() {
@@ -21,7 +22,7 @@ export default function Cell({ cell }: Props) {
   }
 
   return (
-    <div className={`${classes.cell}`}>
+    <div className={classes.cell} onClick={onClick}>
       {isOpen ? (
         renderValue()
       ) : (

@@ -10,7 +10,7 @@ function isMine(cell: GameCell) {
   return cell.value === "mine";
 }
 
-function getAdjacentCells(board: GameBoard, row: number, col: number) {
+export function getAdjacentCells(board: GameBoard, row: number, col: number) {
   const directions = [
     [-1, -1],
     [-1, 0],

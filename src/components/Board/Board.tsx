@@ -1,16 +1,19 @@
 import classes from "./styles.module.css";
 import Cell from "../Cell";
-import { createBoard } from "../../utils";
-import { GAME_LEVELS } from "../../constants";
+import { useMinesweeperGame } from "../../hooks/useMinesweeperGame";
 
 export default function Board() {
-  const board = createBoard(GAME_LEVELS.EASY);
+  const { gameBoard, handleCellClick } = useMinesweeperGame();
   return (
     <div className="board">
-      {board.map((row, rowIndex) => (
+      {gameBoard.map((row, rowIndex) => (
         <div key={rowIndex} className={classes.row}>
           {row.map((cell, cellIndex) => (
-            <Cell key={cellIndex} cell={cell} />
+            <Cell
+              key={cellIndex}
+              cell={cell}
+              onClick={() => handleCellClick(rowIndex, cellIndex)}
+            />
           ))}
         </div>
       ))}

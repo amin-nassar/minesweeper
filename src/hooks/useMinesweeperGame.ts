@@ -2,13 +2,33 @@ import { useState } from "react";
 import { createBoard } from "../utils";
 import { GAME_LEVELS } from "../constants";
 import { GameBoard } from "../components/Board/types";
+import { LevelName } from "../types";
+
+function useGameLevel() {
+  const [level, changeLevel] = useState<LevelName>("EASY");
+
+  return { level, changeLevel };
+}
 
 export function useMinesweeperGame() {
-  const [gameBoard, setGameBoard] = useState(() =>
-    createBoard(GAME_LEVELS.EASY)
-  );
+  const { level, changeLevel } = useGameLevel();
+  const gameLevel = GAME_LEVELS[level];
+  const [gameBoard, setGameBoard] = useState(() => createBoard(gameLevel));
 
-  const [, setIsGameOver] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [isGameWin, setIsGameWin] = useState(false);
+
+  function resetGame() {
+    setGameBoard(createBoard(GAME_LEVELS[level]));
+    setIsGameOver(false);
+    setIsGameWin(false);
+  }
+
+  function handleChange(newLevel: LevelName) {
+    changeLevel(newLevel);
+    resetGame();
+    setGameBoard(createBoard(GAME_LEVELS[newLevel]));
+  }
 
   function cloneBoard(board: GameBoard): GameBoard {
     return JSON.parse(JSON.stringify(board));
@@ -27,7 +47,26 @@ export function useMinesweeperGame() {
       if (!cell.value) revealAdjacentCells(newBoard, row, col);
     }
 
+    if (checkGameWin(newBoard)) {
+      setIsGameWin(true);
+      revealAllMines(newBoard, true);
+    }
     return newBoard;
+  }
+
+  function checkGameWin(board: GameBoard) {
+    let correctlyFlaggedMines = 0;
+    let unOpenedCells = 0;
+
+    const totalMines = gameLevel.mines;
+    board.forEach((row) => {
+      row.forEach((cell) => {
+        if (!cell.isOpen) unOpenedCells++;
+        if (cell.value === "mine" && cell.isFlagged) correctlyFlaggedMines++;
+      });
+    });
+
+    return unOpenedCells === totalMines || correctlyFlaggedMines === totalMines;
   }
 
   function revealAllMines(board: GameBoard, win?: boolean) {
@@ -41,6 +80,10 @@ export function useMinesweeperGame() {
     });
   }
   function handleCellClick(row: number, col: number) {
+    if (isGameOver || isGameWin) return;
+    const { isFlagged, isOpen } = gameBoard[row][col];
+    if (isFlagged || isOpen) return;
+
     const n = openCell(gameBoard, row, col);
     if (n) setGameBoard(n);
   }
@@ -82,5 +125,5 @@ export function useMinesweeperGame() {
     return board;
   }
 
-  return { gameBoard, handleCellClick };
+  return { gameBoard, handleCellClick, level, changeLevel: handleChange };
 }

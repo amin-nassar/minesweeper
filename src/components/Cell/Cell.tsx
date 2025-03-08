@@ -21,8 +21,11 @@ export default function Cell({ cell, onClick }: Props) {
     return <p className={classes[color] ?? ""}>{value}</p>;
   }
 
+  const highlightClass =
+    cell.value === "mine" && cell.highlight ? classes[cell.highlight] : "";
+
   return (
-    <div className={classes.cell} onClick={onClick}>
+    <div className={`${classes.cell} ${highlightClass}`} onClick={onClick}>
       {isOpen ? (
         renderValue()
       ) : (

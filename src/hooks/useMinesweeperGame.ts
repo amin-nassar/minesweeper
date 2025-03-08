@@ -8,6 +8,8 @@ export function useMinesweeperGame() {
     createBoard(GAME_LEVELS.EASY)
   );
 
+  const [, setIsGameOver] = useState(false);
+
   function cloneBoard(board: GameBoard): GameBoard {
     return JSON.parse(JSON.stringify(board));
   }
@@ -17,7 +19,9 @@ export function useMinesweeperGame() {
     const cell = newBoard[row][col];
 
     if (cell.value === "mine") {
-      console.log("Game Over!");
+      setIsGameOver(true);
+      cell.highlight = "red";
+      revealAllMines(newBoard);
     } else {
       cell.isOpen = true;
       if (!cell.value) revealAdjacentCells(newBoard, row, col);
@@ -26,6 +30,16 @@ export function useMinesweeperGame() {
     return newBoard;
   }
 
+  function revealAllMines(board: GameBoard, win?: boolean) {
+    board.forEach((row) => {
+      row.forEach((cell) => {
+        if (cell.value === "mine") {
+          cell.isOpen = true;
+          if (win) cell.highlight = "green";
+        }
+      });
+    });
+  }
   function handleCellClick(row: number, col: number) {
     const n = openCell(gameBoard, row, col);
     if (n) setGameBoard(n);

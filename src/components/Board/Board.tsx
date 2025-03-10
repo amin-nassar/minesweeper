@@ -4,8 +4,13 @@ import { useMinesweeperGame } from "../../hooks/useMinesweeperGame";
 import LevelSelect from "../LevelSelect";
 
 export default function Board() {
-  const { gameBoard, handleCellClick, changeLevel, level } =
-    useMinesweeperGame();
+  const {
+    gameBoard,
+    handleCellClick,
+    changeLevel,
+    level,
+    handleCellRightClick,
+  } = useMinesweeperGame();
   return (
     <>
       <div className="board">
@@ -16,7 +21,8 @@ export default function Board() {
                 key={cellIndex}
                 cell={cell}
                 onClick={() => handleCellClick(rowIndex, cellIndex)}
-                size={level === "HARD" ? "small" : "small"}
+                onRightClick={() => handleCellRightClick(rowIndex, cellIndex)}
+                size={level === "EASY" ? "normal" : "small"}
               />
             ))}
           </div>

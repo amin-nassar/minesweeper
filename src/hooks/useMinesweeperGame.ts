@@ -17,11 +17,13 @@ export function useMinesweeperGame() {
 
   const [isGameOver, setIsGameOver] = useState(false);
   const [isGameWin, setIsGameWin] = useState(false);
+  const [flagsCount, setFlagsCount] = useState(0);
 
   function resetGame() {
     setGameBoard(createBoard(GAME_LEVELS[level]));
     setIsGameOver(false);
     setIsGameWin(false);
+    setFlagsCount(0);
   }
 
   function handleChange(newLevel: LevelName) {
@@ -88,6 +90,23 @@ export function useMinesweeperGame() {
     if (n) setGameBoard(n);
   }
 
+  function handleCellRightClick(row: number, col: number) {
+    if (isGameOver || isGameWin) return;
+    const cell = gameBoard[row][col];
+    if (cell.isOpen) return;
+
+    const newBoard = cloneBoard(gameBoard);
+    newBoard[row][col].isFlagged = !cell.isFlagged;
+    const flagsDiff = cell.isFlagged ? -1 : 1;
+    setGameBoard(newBoard);
+    setFlagsCount((prev) => prev + flagsDiff);
+
+    if (checkGameWin(newBoard)) {
+      revealAllMines(newBoard, true);
+      setIsGameWin(true);
+    }
+  }
+
   const directions = [
     [-1, -1],
     [-1, 0],
@@ -125,5 +144,12 @@ export function useMinesweeperGame() {
     return board;
   }
 
-  return { gameBoard, handleCellClick, level, changeLevel: handleChange };
+  return {
+    gameBoard,
+    handleCellClick,
+    level,
+    changeLevel: handleChange,
+    handleCellRightClick,
+    flagsCount,
+  };
 }

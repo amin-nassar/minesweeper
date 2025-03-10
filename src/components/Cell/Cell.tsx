@@ -7,10 +7,11 @@ import type { GameCell } from "./types";
 interface Props {
   cell: GameCell;
   onClick: () => void;
+  onRightClick: () => void;
   size: "small" | "normal";
 }
 
-export default function Cell({ cell, onClick, size }: Props) {
+export default function Cell({ cell, onClick, size, onRightClick }: Props) {
   const { value, isOpen, isFlagged } = cell;
 
   function renderValue() {
@@ -25,10 +26,15 @@ export default function Cell({ cell, onClick, size }: Props) {
   const highlightClass =
     cell.value === "mine" && cell.highlight ? classes[cell.highlight] : "";
 
+  function handleRightClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    e.preventDefault();
+    onRightClick();
+  }
   return (
     <div
       className={`${classes.cell} ${classes[size]} ${highlightClass}`}
       onClick={onClick}
+      onContextMenu={handleRightClick}
     >
       {isOpen ? (
         renderValue()

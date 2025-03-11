@@ -19,6 +19,8 @@ export function useMinesweeperGame() {
   const [isGameWin, setIsGameWin] = useState(false);
   const [flagsCount, setFlagsCount] = useState(0);
 
+  const minesLeft = gameLevel.mines - flagsCount;
+
   function resetGame() {
     setGameBoard(createBoard(GAME_LEVELS[level]));
     setIsGameOver(false);
@@ -151,5 +153,8 @@ export function useMinesweeperGame() {
     changeLevel: handleChange,
     handleCellRightClick,
     flagsCount,
+    minesLeft,
+    isGameOver,
+    isGameWin,
   };
 }

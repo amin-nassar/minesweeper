@@ -2,6 +2,7 @@ import classes from "./styles.module.css";
 import Cell from "../Cell";
 import { useMinesweeperGame } from "../../hooks/useMinesweeperGame";
 import LevelSelect from "../LevelSelect";
+import Header from "../Header";
 
 export default function Board() {
   const {
@@ -10,9 +11,17 @@ export default function Board() {
     changeLevel,
     level,
     handleCellRightClick,
+    isGameOver,
+    isGameWin,
+    minesLeft,
   } = useMinesweeperGame();
   return (
     <>
+      <Header
+        isGameOver={isGameOver}
+        isGameWin={isGameWin}
+        minesLeft={minesLeft}
+      />
       <div className="board">
         {gameBoard.map((row, rowIndex) => (
           <div key={rowIndex} className={classes.row}>

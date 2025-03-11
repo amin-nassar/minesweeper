@@ -15,6 +15,7 @@ export default function Board() {
     isGameWin,
     minesLeft,
     timeDiff,
+    resetGame,
   } = useMinesweeperGame();
   return (
     <>
@@ -23,6 +24,7 @@ export default function Board() {
         isGameWin={isGameWin}
         minesLeft={minesLeft}
         timeDiff={timeDiff}
+        resetGame={resetGame}
       />
       <div className="board">
         {gameBoard.map((row, rowIndex) => (

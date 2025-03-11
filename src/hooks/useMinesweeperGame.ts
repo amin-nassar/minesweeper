@@ -34,6 +34,7 @@ export function useMinesweeperGame() {
     setIsGameOver(false);
     setIsGameWin(false);
     setFlagsCount(0);
+    stopTimer();
     resetTimer();
   }
 
@@ -169,5 +170,6 @@ export function useMinesweeperGame() {
     isGameOver,
     isGameWin,
     timeDiff,
+    resetGame,
   };
 }

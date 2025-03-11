@@ -1,4 +1,3 @@
-import React from "react";
 import timerIcon from "/icons/timer.svg";
 import classes from "./styles.module.css";
 

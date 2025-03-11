@@ -1,4 +1,3 @@
-import React from "react";
 import { LevelName } from "../../types";
 import { GAME_LEVELS } from "../../constants";
 import classes from "./styles.module.css";

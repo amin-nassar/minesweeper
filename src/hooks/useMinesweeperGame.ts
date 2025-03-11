@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createBoard } from "../utils";
 import { GAME_LEVELS } from "../constants";
 import { GameBoard } from "../components/Board/types";
 import { LevelName } from "../types";
+import useTimer from "./useTimer";
 
 function useGameLevel() {
   const [level, changeLevel] = useState<LevelName>("EASY");
@@ -11,6 +12,8 @@ function useGameLevel() {
 }
 
 export function useMinesweeperGame() {
+  const { isTimerRunning, timeDiff, resetTimer, startTimer, stopTimer } =
+    useTimer();
   const { level, changeLevel } = useGameLevel();
   const gameLevel = GAME_LEVELS[level];
   const [gameBoard, setGameBoard] = useState(() => createBoard(gameLevel));
@@ -20,12 +23,18 @@ export function useMinesweeperGame() {
   const [flagsCount, setFlagsCount] = useState(0);
 
   const minesLeft = gameLevel.mines - flagsCount;
+  const isGameEnded = isGameOver || isGameWin;
+
+  useEffect(() => {
+    if (isGameEnded) stopTimer();
+  }, [isGameEnded, stopTimer]);
 
   function resetGame() {
     setGameBoard(createBoard(GAME_LEVELS[level]));
     setIsGameOver(false);
     setIsGameWin(false);
     setFlagsCount(0);
+    resetTimer();
   }
 
   function handleChange(newLevel: LevelName) {
@@ -39,6 +48,8 @@ export function useMinesweeperGame() {
   }
 
   function openCell(board: GameBoard, row: number, col: number) {
+    if (!isTimerRunning) startTimer();
+
     const newBoard = cloneBoard(board);
     const cell = newBoard[row][col];
 
@@ -94,6 +105,7 @@ export function useMinesweeperGame() {
 
   function handleCellRightClick(row: number, col: number) {
     if (isGameOver || isGameWin) return;
+    if (!isTimerRunning) startTimer();
     const cell = gameBoard[row][col];
     if (cell.isOpen) return;
 
@@ -156,5 +168,6 @@ export function useMinesweeperGame() {
     minesLeft,
     isGameOver,
     isGameWin,
+    timeDiff,
   };
 }

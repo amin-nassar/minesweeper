@@ -1,6 +1,6 @@
 .header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   padding: 0.5rem 0;
   font-weight: 700;
@@ -12,7 +12,7 @@
     height: 1rem;
   }
 
-  & .label {
+  & div {
     display: flex;
     align-items: center;
     gap: 0.25rem;

@@ -15,7 +15,7 @@ export default function GameStatus({
   const isGameEnded = isGameOver || isGameWin;
 
   return (
-    <>
+    <div>
       {isGameWin && <span>You Win!</span>}
       {isGameOver && <span>Game Over!</span>}
       {!isGameEnded && (
@@ -24,6 +24,6 @@ export default function GameStatus({
           {minesLeft}
         </>
       )}
-    </>
+    </div>
   );
 }

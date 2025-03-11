@@ -22,7 +22,7 @@ export default function useSFX() {
     for (const soundName in SOUNDS) {
       const sound = soundName as SoundName;
       const soundPath = SOUNDS[sound];
-      const source = import.meta.env.BASE_URL + "sfx/" + soundPath;
+      const source = import.meta.env.BASE_URL + "/sfx/" + soundPath;
       map[sound] = new Audio(source);
     }
 

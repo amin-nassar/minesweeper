@@ -21,7 +21,7 @@ export default function GameStatus({
       {!isGameEnded && (
         <>
           <img src={mineIcon} alt="Mine" className={classes.icon} />
-          {minesLeft}
+          {minesLeft < 10 ? `0${minesLeft}` : minesLeft}
         </>
       )}
     </div>

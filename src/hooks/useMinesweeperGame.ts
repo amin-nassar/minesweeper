@@ -97,10 +97,18 @@ export function useMinesweeperGame() {
   }
   function handleCellClick(row: number, col: number) {
     if (isGameOver || isGameWin) return;
-    const { isFlagged, isOpen } = gameBoard[row][col];
+    const { isFlagged, isOpen, value } = gameBoard[row][col];
     if (isFlagged || isOpen) return;
 
-    const n = openCell(gameBoard, row, col);
+    let newBoard = gameBoard;
+
+    if (value === "mine" && !isTimerRunning) {
+      do {
+        newBoard = createBoard(gameLevel);
+      } while (newBoard[row][col].value === "mine");
+    }
+
+    const n = openCell(newBoard, row, col);
     if (n) setGameBoard(n);
   }
 

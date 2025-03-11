@@ -3,6 +3,7 @@ import Cell from "../Cell";
 import { useMinesweeperGame } from "../../hooks/useMinesweeperGame";
 import LevelSelect from "../LevelSelect";
 import Header from "../Header";
+import ReactConfetti from "react-confetti";
 
 export default function Board() {
   const {
@@ -42,6 +43,7 @@ export default function Board() {
         ))}
       </div>
       <LevelSelect level={level} onChange={changeLevel} />
+      {isGameWin && <ReactConfetti />}
     </>
   );
 }

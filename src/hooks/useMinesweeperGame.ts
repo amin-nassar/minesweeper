@@ -4,6 +4,7 @@ import { GAME_LEVELS } from "../constants";
 import { GameBoard } from "../components/Board/types";
 import { LevelName } from "../types";
 import useTimer from "./useTimer";
+import useSFX from "./useSFX";
 
 function useGameLevel() {
   const [level, changeLevel] = useState<LevelName>("EASY");
@@ -12,6 +13,7 @@ function useGameLevel() {
 }
 
 export function useMinesweeperGame() {
+  const { playSound } = useSFX();
   const { isTimerRunning, timeDiff, resetTimer, startTimer, stopTimer } =
     useTimer();
   const { level, changeLevel } = useGameLevel();
@@ -58,13 +60,16 @@ export function useMinesweeperGame() {
       setIsGameOver(true);
       cell.highlight = "red";
       revealAllMines(newBoard);
+      playSound("GAME_OVER");
     } else {
       cell.isOpen = true;
+      playSound(cell.value ? "REVEAL_NUMBER" : "REVEAL_EMPTY");
       if (!cell.value) revealAdjacentCells(newBoard, row, col);
     }
 
     if (checkGameWin(newBoard)) {
       setIsGameWin(true);
+      playSound("GAME_WIN");
       revealAllMines(newBoard, true);
     }
     return newBoard;
@@ -121,12 +126,14 @@ export function useMinesweeperGame() {
     const newBoard = cloneBoard(gameBoard);
     newBoard[row][col].isFlagged = !cell.isFlagged;
     const flagsDiff = cell.isFlagged ? -1 : 1;
+    playSound(cell.isFlagged ? "FLAG_REMOVE" : "FLAG_PLACE");
     setGameBoard(newBoard);
     setFlagsCount((prev) => prev + flagsDiff);
 
     if (checkGameWin(newBoard)) {
       revealAllMines(newBoard, true);
       setIsGameWin(true);
+      playSound("GAME_WIN");
     }
   }
 

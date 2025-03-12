@@ -1,54 +1,56 @@
-# React + TypeScript + Vite
+# Minesweeper Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A classic Minesweeper game built using React, featuring multiple difficulty levels, a timer, mine counter, sound effects, and celebratory animations.
 
-Currently, two official plugins are available:
+## Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Check out the game here: [Minesweeper](https://amin-nassar.github.io/minesweeper/)
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Three Difficulty Levels**: Easy, Medium, and Hard.
+- **Game Reset**: Restart the game at any time.
+- **Mine Counter**: Displays the remaining unflagged mines.
+- **Timer**: Tracks the time taken to complete the game.
+- **Win Celebration**: Uses `react-confetti` to show a celebration effect upon victory.
+- **Sound Effects**: Enhances user interaction with audio feedback.
+- **CSS Modules**: Styles the app with modular and scoped styles.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Technologies Used
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **React**: Handles game logic and UI rendering.
+- **CSS Modules**: Provides scoped and modular styling.
+- **react-confetti**: Displays celebration animations upon winning.
+- **GitHub Pages**: Used for deployment.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Installation
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+To run the project locally, follow these steps:
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/amin-nassar/minesweeper.git
+   ```
+2. Navigate to the project directory:
+   ```sh
+   cd minesweeper
+   ```
+3. Install dependencies:
+   ```sh
+   npm install
+   ```
+4. Start the development server:
+   ```sh
+   npm run dev
+   ```
+
+## Future Enhancements
+
+- **State Management**: Use **Zustand** to manage game state efficiently and reduce unnecessary re-renders.
+- **Tailwind CSS**: Improve styling and maintainability using Tailwind CSS.
+
+## Contact
+
+- **LinkedIn**: [Amin M. Nassar](https://www.linkedin.com/in/amin-m-nassar/)
+- **Email**: [amin.nassar.ce@gmail.com](mailto:amin.nassar.ce@gmail.com)
+- **X (Previously Twitter)**: [@devAminNassar](https://x.com/devAminNassar)

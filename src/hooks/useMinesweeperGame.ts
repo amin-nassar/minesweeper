@@ -6,17 +6,11 @@ import { LevelName } from "../types";
 import useTimer from "./useTimer";
 import useSFX from "./useSFX";
 
-function useGameLevel() {
-  const [level, changeLevel] = useState<LevelName>("EASY");
-
-  return { level, changeLevel };
-}
-
 export function useMinesweeperGame() {
   const { playSound } = useSFX();
   const { isTimerRunning, timeDiff, resetTimer, startTimer, stopTimer } =
     useTimer();
-  const { level, changeLevel } = useGameLevel();
+  const [level, changeLevel] = useState<LevelName>("EASY");
   const gameLevel = GAME_LEVELS[level];
   const [gameBoard, setGameBoard] = useState(() => createBoard(gameLevel));
 
@@ -123,6 +117,8 @@ export function useMinesweeperGame() {
     if (!isTimerRunning) startTimer();
     const cell = gameBoard[row][col];
     if (cell.isOpen) return;
+
+    if (flagsCount === gameLevel.mines) return;
 
     const newBoard = cloneBoard(gameBoard);
     newBoard[row][col].isFlagged = !cell.isFlagged;

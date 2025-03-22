@@ -61,11 +61,12 @@ export function useMinesweeperGame() {
       cell.highlight = "red";
       revealAllMines(newBoard);
       playSound("GAME_OVER");
-    } else {
-      cell.isOpen = true;
-      playSound(cell.value ? "REVEAL_NUMBER" : "REVEAL_EMPTY");
-      if (!cell.value) revealAdjacentCells(newBoard, row, col);
+      return newBoard;
     }
+
+    cell.isOpen = true;
+    playSound(cell.value ? "REVEAL_NUMBER" : "REVEAL_EMPTY");
+    if (!cell.value) revealAdjacentCells(newBoard, row, col);
 
     if (checkGameWin(newBoard)) {
       setIsGameWin(true);
